@@ -133,7 +133,7 @@ public class UploadWallpaperActivity extends AppCompatActivity {
         FirebaseDatabase.getInstance()
                 .getReference(Common.STR_BACKGROUNDS)
                 .push()
-                .setValue(new Backgrounds(imageLink,categoryIdSelect))
+                .setValue(new Backgrounds(categoryIdSelect,imageLink))
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
