@@ -1,0 +1,18 @@
+<resources>
+    <string name="app_name">WhtasImageStatus</string>
+    <string name="need_a_new_account">NEED A NEW ACCOUNT ?</string>
+    <string name="display_name">Display Name</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="create_account">CREATE ACCOUNT</string>
+    <string name="log_out">Log Out</string>
+
+    <string name="smwallpaper">SMWallpaper</string>
+    <string name="banner_ad_unit_id">ca-app-pub-4101792831023955/7735283351</string>
+    <string name="banner_ad_unit_idd">ca-app-pub-4101792831023955/7735283351</string>
+    <string name="inter_ad_unit_id">ca-app-pub-4101792831023955/5698815367</string>
+    <string name="reward_ad_unit_id">ca-app-pub-4101792831023955/8436675253</string>
+    <string name="name_of_menu">Name of Menu</string>
+    <string name="feedback">FeedBack</string>
+    <string name="click_here">Click Here</string>
+</resources>
