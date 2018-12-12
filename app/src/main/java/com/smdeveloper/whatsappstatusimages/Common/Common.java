@@ -2,7 +2,6 @@ package com.smdeveloper.whatsappstatusimages.Common;
 
 import com.smdeveloper.whatsappstatusimages.Model.Backgrounds;
 
-import java.security.PublicKey;
 
 /**
  * Created by sathish kumar on 29-10-2017.
