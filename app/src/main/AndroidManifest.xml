@@ -24,18 +24,7 @@
         <activity android:name=".ViewWallpaperActivity" />
         <activity android:name=".UploadWallpaperActivity" />
 
-        <service android:name=".Notification.FirebaseService.MyFirebaseIdService">
-            <intent-filter>
-                <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
-            </intent-filter>
-        </service>
-        <service android:name=".Notification.FirebaseService.MyFirebaseMessagingService">
-            <intent-filter>
-                <action android:name="com.google.firebase.MESSAGING_EVENT" />
-            </intent-filter>
-        </service>
 
-        <activity android:name=".Display"></activity>
     </application>
 
 </manifest>
