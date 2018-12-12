@@ -1,30 +1,30 @@
 package com.smdeveloper.whatsappstatusimages.Model;
 
 public class Backgrounds {
-    private String Categoryid;
-    private String Imagelink;
+    private String categoryid;
+    private String imagelink;
 
     public Backgrounds() {
     }
 
     public Backgrounds(String categoryid, String imagelink) {
-        Categoryid = categoryid;
-        Imagelink = imagelink;
+        this.categoryid = categoryid;
+        this.imagelink = imagelink;
     }
 
     public String getCategoryid() {
-        return Categoryid;
+        return categoryid;
     }
 
     public void setCategoryid(String categoryid) {
-        Categoryid = categoryid;
+        this.categoryid = categoryid;
     }
 
     public String getImagelink() {
-        return Imagelink;
+        return imagelink;
     }
 
     public void setImagelink(String imagelink) {
-        Imagelink = imagelink;
+        this.imagelink = imagelink;
     }
 }
