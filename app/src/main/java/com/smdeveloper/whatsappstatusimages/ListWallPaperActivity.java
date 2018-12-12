@@ -1,35 +1,30 @@
 package com.smdeveloper.whatsappstatusimages;
 
 import android.content.Intent;
-        import android.support.annotation.NonNull;
-        import android.support.design.widget.BottomNavigationView;
-        import android.support.multidex.MultiDex;
-        import android.support.v7.app.AppCompatActivity;
-        import android.os.Bundle;
-        import android.support.v7.widget.GridLayoutManager;
-        import android.support.v7.widget.LinearLayoutManager;
-        import android.support.v7.widget.RecyclerView;
-        import android.support.v7.widget.Toolbar;
-        import android.util.Log;
-        import android.view.MenuItem;
-        import android.view.View;
-        import android.widget.Toast;
+import android.support.multidex.MultiDex;
+import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.util.Log;
+import android.view.View;
+import android.widget.Toast;
 
-        import com.firebase.ui.database.FirebaseRecyclerAdapter;
-        import com.google.android.gms.ads.AdRequest;
-        import com.google.android.gms.ads.AdView;
+import com.firebase.ui.database.FirebaseRecyclerAdapter;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
-        import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.smdeveloper.whatsappstatusimages.Common.Common;
-        import com.smdeveloper.whatsappstatusimages.Inteface.ItemClickListener;
-        import com.smdeveloper.whatsappstatusimages.Model.Backgrounds;
-        import com.smdeveloper.whatsappstatusimages.ViewHolders.BackgroundViewHolder;
-        import com.squareup.picasso.Callback;
-        import com.squareup.picasso.NetworkPolicy;
-        import com.squareup.picasso.Picasso;
+import com.smdeveloper.whatsappstatusimages.Inteface.ItemClickListener;
+import com.smdeveloper.whatsappstatusimages.Model.Backgrounds;
+import com.smdeveloper.whatsappstatusimages.ViewHolders.BackgroundViewHolder;
+import com.squareup.picasso.Callback;
+import com.squareup.picasso.NetworkPolicy;
+import com.squareup.picasso.Picasso;
 
 public class ListWallPaperActivity extends AppCompatActivity {
 
@@ -41,7 +36,7 @@ public class ListWallPaperActivity extends AppCompatActivity {
 
     String categoryId="";
 
-    private AdView mAdView;
+    AdView mAdView;
 
 
     FirebaseRecyclerAdapter<Backgrounds,BackgroundViewHolder> BackgroundAdapter;
@@ -70,7 +65,7 @@ public class ListWallPaperActivity extends AppCompatActivity {
 
 
         //Load for Menu
-        recycler_Background = (RecyclerView)findViewById(R.id.recycler_back);
+        recycler_Background = findViewById(R.id.recycler_back);
         recycler_Background.setHasFixedSize(true);
         //layoutManager = new LinearLayoutManager(this);
         //recycler_Background.setLayoutManager(layoutManager);
@@ -80,15 +75,19 @@ public class ListWallPaperActivity extends AppCompatActivity {
         //Get Intent here
         if (getIntent() != null)
             categoryId = getIntent().getStringExtra("CategoryId");
-        if (!categoryId.isEmpty() && categoryId != null)
+        if (!categoryId.isEmpty())
         {
-            loadBackground(categoryId);
+            loadBackground();
+        }
+        else
+        {
+            Toast.makeText(this, "Error", Toast.LENGTH_SHORT).show();
         }
 
 
     }
 
-    private void loadBackground(String categoryId)
+    private void loadBackground()
     {
         BackgroundAdapter = new FirebaseRecyclerAdapter<Backgrounds, BackgroundViewHolder>(
                 Backgrounds.class,
@@ -130,7 +129,7 @@ public class ListWallPaperActivity extends AppCompatActivity {
                                                 });
                                     }
                                 });
-                        final Backgrounds clickItem = model;
+
                         viewHolder.setItemClickListener(new ItemClickListener() {
                             @Override
                             public void onClick(View view, int position, boolean isLongVlick) {
