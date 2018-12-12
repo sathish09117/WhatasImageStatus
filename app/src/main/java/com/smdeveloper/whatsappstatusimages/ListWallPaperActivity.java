@@ -18,9 +18,12 @@ import android.content.Intent;
         import com.firebase.ui.database.FirebaseRecyclerAdapter;
         import com.google.android.gms.ads.AdRequest;
         import com.google.android.gms.ads.AdView;
-        import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
         import com.google.firebase.database.FirebaseDatabase;
-        import com.smdeveloper.whatsappstatusimages.Common.Common;
+import com.google.firebase.database.ValueEventListener;
+import com.smdeveloper.whatsappstatusimages.Common.Common;
         import com.smdeveloper.whatsappstatusimages.Inteface.ItemClickListener;
         import com.smdeveloper.whatsappstatusimages.Model.Backgrounds;
         import com.smdeveloper.whatsappstatusimages.ViewHolders.BackgroundViewHolder;
@@ -91,47 +94,61 @@ public class ListWallPaperActivity extends AppCompatActivity {
                 Backgrounds.class,
                 R.layout.user_single_list,
                 BackgroundViewHolder.class,
-                background.orderByChild("Categoryid").equalTo(categoryId)) {
+                background) {
             @Override
             protected void populateViewHolder(final BackgroundViewHolder viewHolder, final Backgrounds model, int position) {
-                Picasso.with(getBaseContext())
-                        .load(model.getImagelink())
-                        .networkPolicy(NetworkPolicy.OFFLINE)
-                        .into(viewHolder.imageView, new Callback() {
+
+                String back_id = getRef(position).getKey();
+                background.child(back_id).addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        Picasso.with(getBaseContext())
+                                .load(model.getImagelink())
+                                .networkPolicy(NetworkPolicy.OFFLINE)
+                                .into(viewHolder.imageView, new Callback() {
+                                    @Override
+                                    public void onSuccess() {
+
+                                    }
+
+                                    @Override
+                                    public void onError() {
+                                        Picasso.with(getBaseContext())
+                                                .load(model.getImagelink())
+                                                .error(R.drawable.ic_terrain_black_24dp)
+                                                .into(viewHolder.imageView, new Callback() {
+                                                    @Override
+                                                    public void onSuccess() {
+
+                                                    }
+
+                                                    @Override
+                                                    public void onError() {
+                                                        Log.e("ERROR_SMTT","Couldn't fetch image");
+
+                                                    }
+                                                });
+                                    }
+                                });
+                        final Backgrounds clickItem = model;
+                        viewHolder.setItemClickListener(new ItemClickListener() {
                             @Override
-                            public void onSuccess() {
-
-                            }
-
-                            @Override
-                            public void onError() {
-                                Picasso.with(getBaseContext())
-                                        .load(model.getImagelink())
-                                        .error(R.drawable.ic_terrain_black_24dp)
-                                        .into(viewHolder.imageView, new Callback() {
-                                            @Override
-                                            public void onSuccess() {
-
-                                            }
-
-                                            @Override
-                                            public void onError() {
-                                                Log.e("ERROR_SMTT","Couldn't fetch image");
-
-                                            }
-                                        });
+                            public void onClick(View view, int position, boolean isLongVlick) {
+                                Intent WallPaperintent = new Intent(ListWallPaperActivity.this,ViewWallpaperActivity.class);
+                                Common.Selected_background = model;
+                                startActivity(WallPaperintent);
                             }
                         });
-                final Backgrounds clickItem = model;
-                viewHolder.setItemClickListener(new ItemClickListener() {
+
+                    }
+
                     @Override
-                    public void onClick(View view, int position, boolean isLongVlick) {
-                        Intent WallPaperintent = new Intent(ListWallPaperActivity.this,ViewWallpaperActivity.class);
-                        Common.Selected_background = model;
-                        startActivity(WallPaperintent);
+                    public void onCancelled(DatabaseError databaseError) {
+
                     }
                 });
-            }
+
+             }
         };
         recycler_Background.setAdapter(BackgroundAdapter);
     }
